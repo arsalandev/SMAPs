@@ -1,24 +1,94 @@
 {
-    "Users":[
-        {"Username":"admin", "FirstName": "Alice" , "LastName": "Barry" , "CNIC":"4210-23990-239" , "Role":"Admin"},
-        {"Username":"venom", "FirstName": "Vendy" , "LastName": "Brock" , "CNIC":"2130-48134-853" , "Role":"Agent", "Lat":"12.23","long":"32.23"},
-        {"Username":"john", "FirstName": "Alan" , "LastName": "John" , "CNIC":"9021-38843-154" , "Role":"Manager", "Lat":"23.34","long":"23.43"},
-        {"Username":"ran", "FirstName": "Ivan" , "LastName": "Ran" , "CNIC":"3430-34734-342" , "Role":"Agent", "Lat":"12.23","long":"32.23"},
-        {"Username":"oascar", "FirstName": "Dan" , "LastName": "Oascar" , "CNIC":"9429-38201-102" , "Role":"Agent", "Lat":"12.23","long":"32.23"},
-        {"Username":"monty", "FirstName": "Mic" , "LastName": "Monty" , "CNIC":"2311-31193-482" , "Role":"Manager", "Lat":"23.34","long":"23.43"}
+    "Users": [
+        {
+            "Username": "admin",
+            "FirstName": "Alice",
+            "LastName": "Barry",
+            "CNIC": "4210-23990-239",
+            "Role": "Admin"
+        },
+        {
+            "Username": "venom",
+            "FirstName": "Vendy",
+            "LastName": "Brock",
+            "CNIC": "2130-48134-853",
+            "Role": "Agent",
+            "Lat": "12.23",
+            "long": "32.23"
+        },
+        {
+            "Username": "john",
+            "FirstName": "Alan",
+            "LastName": "John",
+            "CNIC": "9021-38843-154",
+            "Role": "Manager",
+            "Lat": "23.34",
+            "long": "23.43"
+        },
+        {
+            "Username": "ran",
+            "FirstName": "Ivan",
+            "LastName": "Ran",
+            "CNIC": "3430-34734-342",
+            "Role": "Agent",
+            "Lat": "12.23",
+            "long": "32.23"
+        },
+        {
+            "Username": "oascar",
+            "FirstName": "Dan",
+            "LastName": "Oascar",
+            "CNIC": "9429-38201-102",
+            "Role": "Agent",
+            "Lat": "12.23",
+            "long": "32.23"
+        },
+        {
+            "Username": "monty",
+            "FirstName": "Mic",
+            "LastName": "Monty",
+            "CNIC": "2311-31193-482",
+            "Role": "Manager",
+            "Lat": "23.34",
+            "long": "23.43"
+        }
     ],
-    "Role":{
-        "Admin":{"Username":"admin","password":"admin","ProjectCode":"Commander"},
-        "Agent":[
-            {"Username":"venom","password":"agent","ProjectCode":"Italy"},
-            {"Username":"ran","password":"advice","ProjectCode":"Italy"},
-            {"Username":"oascar","password":"flim","ProjectCode":"USA"}
+    "Role": {
+        "Admin": {
+            "Username": "admin",
+            "password": "oC2mz0omam2ow0omom2mn0omom2mr0ommm2mm0om",
+            "ProjectCode": "Commander"
+        },
+        "Agent": [
+            {
+                "Username": "venom",
+                "password": "tI1az0talt1tt0taty1av0taal4am0tayy4tg0ta",
+                "ProjectCode": "Italy"
+            },
+            {
+                "Username": "ran",
+                "password": "tI4az0tayl3tw0taat3ae0tatl4ar0tala4tx0taty4av0ta",
+                "ProjectCode": "Italy"
+            },
+            {
+                "Username": "oascar",
+                "password": "AU3Au9SA4S3So9SAS94Ar9SASA4An9SA",
+                "ProjectCode": "USA"
+            }
         ],
-        "Manager":{
-            "Italy":[{"Username":"john","password":"demo"}],
-            "USA":[{"Username":"monty","password":"game"}]
+        "Manager": {
+            "Italy": [
+                {
+                    "Username": "john",
+                    "password": "yl3tw1taty0av1tata0an1taly0tl1ta"
+                }
+            ],
+            "USA": [
+                {
+                    "Username": "monty",
+                    "password": "323Sw1SA233Sl1SAS23Ar1SA333Sg1SASA3An1SAS33Av1SA"
+                }
+            ]
         }
     }
 }
-
-

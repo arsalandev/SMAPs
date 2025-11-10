@@ -77,6 +77,45 @@ def get_roles():
     data = read_data()
     return jsonify(data["Role"])
 
+# UPDATE password
+@app.route("/roles/password", methods=["PUT"])
+def update_password():
+    data = read_data()
+    req = request.json
+    username = req.get("Username")
+    new_password = req.get("password")
+
+    if not username or not new_password:
+        return jsonify({"error": "Username and password are required"}), 400
+
+    updated = False
+
+    # Check Admin
+    if data["Role"].get("Admin", {}).get("Username") == username:
+        data["Role"]["Admin"]["password"] = new_password
+        updated = True
+
+    # Check Agents
+    for agent in data["Role"].get("Agent", []):
+        if agent["Username"] == username:
+            agent["password"] = new_password
+            updated = True
+            break
+
+    # Check Managers
+    for country, managers in data["Role"].get("Manager", {}).items():
+        for manager in managers:
+            if manager["Username"] == username:
+                manager["password"] = new_password
+                updated = True
+                break
+
+    if not updated:
+        return jsonify({"error": "Username not found"}), 404
+
+    write_data(data)
+    return jsonify({"message": f"Password updated successfully for {username}"})
+
 # Root endpoint
 @app.route("/", methods=["GET"])
 def home():
