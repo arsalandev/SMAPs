@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,16 +22,32 @@ export class LoginComponent implements OnInit{
     "long":""
   };
   
+  Code:any = '';
   projectCode:any = ''; 
 
   cipher: any = {} ;
 
   RoleDetails:any ;
 
-  constructor(private userService: UserService) {}
+  step = 1;
+
+  constructor(private userService: UserService,private router: Router) {}
 
   ngOnInit(): void {
-   
+   let token = localStorage.getItem('token');
+   if(token){
+    this.router.navigate(['/dashboard']);
+   }
+  }
+
+  loginStep(){
+    if(this.step == 1){
+      this.onLogin();
+    } else if(this.step == 2){
+      this.getRoles(this.UserDetails);
+    } else if(this.step == 3){
+      this.Verification();
+    }
   }
 
   onLogin() {
@@ -38,7 +55,7 @@ export class LoginComponent implements OnInit{
       let userDetails = data.find((item:any) => item.Username === this.username);
       if(userDetails !== undefined){
        this.UserDetails = userDetails;
-        this.getRoles(userDetails);           
+       this.step = 2;
       } else {
         console.log("Invalid User Name");        
       }            
@@ -50,14 +67,16 @@ export class LoginComponent implements OnInit{
       const userRole = userinfo.Role;      
     if (userRole === 'Admin') {
         this.RoleDetails = data.Admin.Username === userinfo.Username ? data.Admin : null;
-        this.projectCode = this.RoleDetails.ProjectCode + this.UserDetails['CNIC'];
-        this.Verification();       
+        // this.projectCode = this.Code + this.UserDetails['CNIC'];
+        // this.Verification(); 
+        this.step = 3;      
     } 
     else if (userRole === 'Agent') {
         // Agent is an array
         this.RoleDetails = data.Agent.find((r:any) => r.Username === userinfo.Username) || null;
-        this.projectCode = this.RoleDetails.ProjectCode + this.UserDetails['CNIC'];
-        this.Verification();
+        // this.projectCode = this.Code + this.UserDetails['CNIC'];
+        // this.Verification();
+        this.step = 3;
     } 
     else if (userRole === 'Manager') {
         // Manager is nested by country
@@ -68,15 +87,23 @@ export class LoginComponent implements OnInit{
               this.RoleDetails =  {...match, ProjectCode: country};
             }
         }
-        this.projectCode = this.RoleDetails.ProjectCode + this.UserDetails['CNIC'];
-        this.Verification();
-    }    
+        // this.projectCode = this.Code + this.UserDetails['CNIC'];
+        // this.Verification();
+        this.step = 3;
+    }   
     }); 
   }
 
   Verification(){
+    this.projectCode = this.Code + this.UserDetails['CNIC'];
+    localStorage.setItem("userinfo",JSON.stringify(this.UserDetails));
+    localStorage.setItem("roleinfo",JSON.stringify(this.RoleDetails));
     console.log(this.UserDetails);
     console.log(this.RoleDetails);
+    console.log(this.projectCode);
+    console.log(this.Code);
+    
+    
     this.cipher = {
       "a": this.projectCode[1] + this.projectCode[0] + this.UserDetails['CNIC'][1] + this.projectCode[2] + 'z' + this.UserDetails['CNIC'][3] + this.projectCode[1] + this.projectCode[2],
       "b": this.projectCode[2] + this.projectCode[1] + this.UserDetails['CNIC'][5] + this.projectCode[2] + 'y' + this.UserDetails['CNIC'][3] + this.projectCode[1] + this.projectCode[2],
@@ -144,11 +171,14 @@ export class LoginComponent implements OnInit{
     console.log(this.RoleDetails.password, "Actual");
     if(encrypt == this.RoleDetails.password){
       console.log("Login");
+      localStorage.setItem("token",encrypt);
+      this.router.navigate(['/dashboard']);
     } else {
       console.log("Wrong Credentails");
       
     }
-    
+
+    this.decrypt();
   }
 
   updatePassword() {

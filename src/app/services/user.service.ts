@@ -11,24 +11,18 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  getData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/allInfo`);
+  }
+  
   // Get all users
   getUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users`);
   }
 
   // Add new user
-  addUser(userData: any): Observable<any> {
+  UpdateData(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/users`, userData);
-  }
-
-  // Update existing user
-  updateUser(username: string, updatedData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/users/${username}`, updatedData);
-  }
-
-  // Delete user
-  deleteUser(username: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/users/${username}`);
   }
 
   // Get all roles
@@ -36,10 +30,6 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/roles`);
   }
 
-  // Add new role
-  addRole(role: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/roles`, { Role: role });
-  }
 
   updatePassword(username: string, password: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/roles/password`, {
@@ -47,4 +37,5 @@ export class UserService {
       password: password
     });
   }
+
 }

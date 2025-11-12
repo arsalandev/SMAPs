@@ -1,7 +1,8 @@
 <div class="login-container">
     <h2>Login</h2>
     <input type="text" placeholder="Username" [(ngModel)]="username" />
-    <input type="password" placeholder="Password" [(ngModel)]="password" />
-    <button (click)="onLogin()">Login</button>
+    <input type="text" placeholder="Password" [(ngModel)]="password" *ngIf="step == 2 || step == 3"/>
+    <input type="text" placeholder="CODE" [(ngModel)]="Code" *ngIf="step == 3"/>
+    <button (click)="loginStep()">Login</button>
   
   </div>
