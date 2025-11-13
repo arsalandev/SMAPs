@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit{
 
   ngOnInit(): void {
     this.setData();
-    this.getAllUsers();
   }
 
   setData(){
@@ -31,20 +30,5 @@ export class DashboardComponent implements OnInit{
   logout(){
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
-  }
-
-  getAllUsers(){
-    this.userService.getData().subscribe((data) => {
-      console.log(data);
-      // let info = data;
-      // info.Role.Admin.ProjectCode = 'Commanders' 
-      // this.saveData(info);                      
-    });
-  }
-
-  saveData(data:any){
-    this.userService.UpdateData(data).subscribe((data) => {
-      console.log(data);
-    });
   }
 }
