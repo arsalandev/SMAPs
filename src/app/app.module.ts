@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UsersComponent } from './components/users/users.component';
+import { RoleComponent } from './components/role/role.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { UsersComponent } from './components/users/users.component';
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    UsersComponent
+    UsersComponent,
+    RoleComponent
   ],
   imports: [
     BrowserModule,
