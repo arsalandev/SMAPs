@@ -1,4 +1,60 @@
 {
+    "Users": [
+        {
+            "CNIC": "4210-23990-239",
+            "FirstName": "Alice",
+            "LastName": "Barry",
+            "Lat": "23.298",
+            "Role": "Admin",
+            "Username": "admin",
+            "long": "102.129"
+        },
+        {
+            "CNIC": "2130-48134-853",
+            "FirstName": "Vendy",
+            "LastName": "Brock",
+            "Lat": "12.23",
+            "Role": "Agent",
+            "Username": "venom",
+            "long": "32.23"
+        },
+        {
+            "CNIC": "9021-38843-154",
+            "FirstName": "Alan",
+            "LastName": "John",
+            "Lat": "33.34",
+            "Role": "Manager",
+            "Username": "john",
+            "long": "23.43"
+        },
+        {
+            "CNIC": "3430-34734-342",
+            "FirstName": "Ivan",
+            "LastName": "Ran",
+            "Lat": "12.23",
+            "Role": "Agent",
+            "Username": "ran",
+            "long": "32.23"
+        },
+        {
+            "CNIC": "9429-38201-102",
+            "FirstName": "Dan",
+            "LastName": "Oascar",
+            "Lat": "57.23",
+            "Role": "Agent",
+            "Username": "oascar",
+            "long": "808.23"
+        },
+        {
+            "CNIC": "2311-31193-482",
+            "FirstName": "Mic",
+            "LastName": "Monty",
+            "Lat": "23.34",
+            "Role": "Manager",
+            "Username": "monty",
+            "long": "23.43"
+        }
+    ],
     "Role": {
         "Admin": {
             "ProjectCode": "Commander",
@@ -36,59 +92,5 @@
                 }
             ]
         }
-    },
-    "Users": [
-        {
-            "CNIC": "4210-23990-239",
-            "FirstName": "Alice",
-            "LastName": "Barry",
-            "Role": "Admin",
-            "Username": "admin"
-        },
-        {
-            "CNIC": "2130-48134-853",
-            "FirstName": "Vendy",
-            "LastName": "Brock",
-            "Lat": "12.23",
-            "Role": "Agent",
-            "Username": "venom",
-            "long": "32.23"
-        },
-        {
-            "CNIC": "9021-38843-154",
-            "FirstName": "Alan",
-            "LastName": "John",
-            "Lat": "23.34",
-            "Role": "Manager",
-            "Username": "john",
-            "long": "23.43"
-        },
-        {
-            "CNIC": "3430-34734-342",
-            "FirstName": "Ivan",
-            "LastName": "Ran",
-            "Lat": "12.23",
-            "Role": "Agent",
-            "Username": "ran",
-            "long": "32.23"
-        },
-        {
-            "CNIC": "9429-38201-102",
-            "FirstName": "Dan",
-            "LastName": "Oascar",
-            "Lat": "12.23",
-            "Role": "Agent",
-            "Username": "oascar",
-            "long": "32.23"
-        },
-        {
-            "CNIC": "2311-31193-482",
-            "FirstName": "Mic",
-            "LastName": "Monty",
-            "Lat": "23.34",
-            "Role": "Manager",
-            "Username": "monty",
-            "long": "23.43"
-        }
-    ]
+    }
 }
