@@ -4,14 +4,15 @@
     <input formControlName="FirstName" placeholder="First Name" />
     <input formControlName="LastName" placeholder="Last Name" />
     <input formControlName="Username" placeholder="Username" />
-    <select formControlName="Role">
-      <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
+    <select formControlName="Role" *ngIf="!editMode">
+      <option value="Agent">Agent </option>
+      <option value="Manager">Manager</option>
     </select>
     <input formControlName="Lat" placeholder="Latitude" />
     <input formControlName="long" placeholder="Longitude" />
     <input placeholder="Project Code" [(ngModel)]="projectCode" [ngModelOptions]="{standalone: true}"/>
     <input placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"/>
-    <button type="button" *ngIf="editMode" (click)="decrypt()">Decrypt</button>
+    <!-- <button type="button" *ngIf="editMode" (click)="decrypt()">Decrypt</button> -->
     <button type="submit">{{ editMode ? 'Update' : 'Add' }} User</button>
     <button type="button" (click)="cancelEdit()">Cancel</button>
   </form>
