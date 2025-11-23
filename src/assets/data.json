@@ -31,7 +31,7 @@
             "CNIC": "3430-34734-342",
             "FirstName": "Ivan",
             "LastName": "Ran",
-            "Lat": "12.23",
+            "Lat": "89.00",
             "Role": "Agent",
             "Username": "ran",
             "long": "32.23"
@@ -53,6 +53,24 @@
             "Role": "Manager",
             "Username": "monty",
             "long": "23.43"
+        },
+        {
+            "CNIC": "9023-123132-123",
+            "FirstName": "Ferry",
+            "LastName": "Ben",
+            "Lat": "90.123",
+            "Role": "Agent",
+            "Username": "fben",
+            "long": "652.12723"
+        },
+        {
+            "CNIC": "2348-1231-1233",
+            "FirstName": "Bob",
+            "LastName": "Alix",
+            "Lat": "12.123",
+            "Role": "Manager",
+            "Username": "Balix",
+            "long": "1233.412"
         }
     ],
     "Role": {
@@ -65,30 +83,41 @@
             {
                 "ProjectCode": "Italy",
                 "Username": "venom",
-                "password": "tI1az0talt1tt0taty1av0taal4am0tayy4tg0ta"
+                "password": "tI1az0talt1tt0taty1av0taal4am0tayy4tg0tall1th0ta"
             },
             {
                 "ProjectCode": "Italy",
                 "Username": "ran",
-                "password": "tI4az0tayl3tw0taat3ae0tatl4ar0tala4tx0taty4av0ta"
+                "password": "tI4az0tayl3tw0taat3ae0tatl4ar0tala4tx0taty4av0tayl3tw0ta"
             },
             {
                 "ProjectCode": "USA",
                 "Username": "oascar",
-                "password": "AU3Au9SA4S3So9SAS94Ar9SASA4An9SA"
+                "password": "443Sg9SAS44Av9SA994Sh9SA443Sg9SA"
+            },
+            {
+                "ProjectCode": "USA",
+                "Username": "fben",
+                "password": "SU0Af3SA990Sh3SAS00Av3SAAA1Ai3SA"
             }
         ],
         "Manager": {
+            "CAN": [],
             "Italy": [
                 {
+                    "ProjectCode": "Italy",
                     "Username": "john",
-                    "password": "yl3tw1taty0av1tata0an1taly0tl1ta"
+                    "password": "yl3tw1taty0av1tata0an1taly0tl1tall0th1ta"
                 }
             ],
             "USA": [
                 {
                     "Username": "monty",
                     "password": "323Sw1SA233Sl1SAS23Ar1SA333Sg1SASA3An1SAS33Av1SA"
+                },
+                {
+                    "Username": "Balix",
+                    "password": "3U1Sk8SASU3Az8SA223Sh8SA223Sh8SA"
                 }
             ]
         }

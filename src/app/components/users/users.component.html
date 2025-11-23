@@ -1,16 +1,17 @@
+<div #globeContainer style="width:100%; height:100vh;"></div>
 <div class="user-crud">
-  <form [formGroup]="userForm" (ngSubmit)="addOrUpdateUser()">
+  <form [formGroup]="userForm" (ngSubmit)="addOrUpdateUser()" *ngIf="UserRole !== 'Agent'">
     <input formControlName="CNIC" placeholder="CNIC"/>
     <input formControlName="FirstName" placeholder="First Name" />
     <input formControlName="LastName" placeholder="Last Name" />
     <input formControlName="Username" placeholder="Username" />
     <select formControlName="Role" *ngIf="!editMode">
       <option value="Agent">Agent </option>
-      <option value="Manager">Manager</option>
+      <option value="Manager" *ngIf="UserRole !== 'Manager'">Manager</option>
     </select>
     <input formControlName="Lat" placeholder="Latitude" />
     <input formControlName="long" placeholder="Longitude" />
-    <input placeholder="Project Code" [(ngModel)]="projectCode" [ngModelOptions]="{standalone: true}"/>
+    <input placeholder="Project Code" [(ngModel)]="projectCode" [ngModelOptions]="{standalone: true}" [disabled]="editMode && (userForm.value.Role === 'Agent' || userForm.value.Role === 'Manager')"/>
     <input placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"/>
     <!-- <button type="button" *ngIf="editMode" (click)="decrypt()">Decrypt</button> -->
     <button type="submit">{{ editMode ? 'Update' : 'Add' }} User</button>
@@ -19,7 +20,7 @@
 
   <ng-container *ngIf="users.length !== 0">
     <div *ngFor="let role of userRoles" class="role-section">
-      <h3>{{ role }}s</h3>
+      <h3 *ngIf="userRoles">{{ role }}s</h3>
       <table border="1">
         <tr>
           <th>CNIC</th>
@@ -28,31 +29,36 @@
           <th>Username</th>
           <th>Lat</th>
           <th>Long</th>
+          <th *ngIf="role == 'Manager'">Agents</th>
           <th>Code</th>
           <th>Password</th>
-          <th>Actions</th>
+          <th *ngIf="UserRole !== 'Agent'">Actions</th>
         </tr>
-        <tr *ngFor="let user of getUsersByRole(role)">
+        <ng-container *ngFor="let user of getUsersByRole(role)">
+        <tr>
           <td>{{ user.CNIC }}</td>
           <td>{{ user.FirstName }}</td>
           <td>{{ user.LastName }}</td>
           <td>{{ user.Username }}</td>
           <td>{{ user.Lat || '-' }}</td>
           <td>{{ user.long || '-' }}</td>
+          <td *ngIf="role == 'Manager'">{{ countAgentsByKey(getCode(role,user)) }}</td>
           <td *ngIf="role == 'Admin'">{{ roles[role].ProjectCode }}</td>
           <td *ngIf="role == 'Admin'">{{ roles[role].password }}</td>
           <td *ngIf="role == 'Agent'">{{ fetchCode(role,user )}}</td>
           <td *ngIf="role == 'Agent'">{{ fetchPassword(role,user) }}</td>
           <td *ngIf="role == 'Manager'">{{ getCode(role,user )}}</td>
           <td *ngIf="role == 'Manager'">{{ getPassword(role,user) }}</td>
-          <td>
-            <button (click)="editUser(user)">Edit</button>
-            <button (click)="deleteUser(user.CNIC)">Delete</button>
+          <td *ngIf="UserRole !== 'Agent'">
+            <button (click)="editUser(user)" *ngIf="UserRole !== 'Agent'">Edit</button>
+            <button *ngIf="role !== 'Admin' && UserRole !== 'Agent'" (click)="deleteUser(user)">Delete</button>
           </td>
         </tr>
+      </ng-container>
       </table>
     </div>
   </ng-container>
   
   
 </div>
+
