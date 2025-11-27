@@ -22,14 +22,16 @@ export class UsersComponent implements OnInit{
   UserRole = '';
   @ViewChild('globeContainer', { static: true }) globeContainer!: ElementRef;
   private globe: any;
-  private data = [
-    { lat: 40.7128, lng: -74.0060, size: 0.1, color: 'red', label: 'New York', population: '8.4M' },
-    { lat: 51.5074, lng: -0.1278, size: 0.1, color: 'blue', label: 'London', population: '9.0M' },
-    { lat: 35.6762, lng: 139.6503, size: 0.1, color: 'green', label: 'Tokyo', population: '13.9M' },
-    { lat: -33.8688, lng: 151.2093, size: 0.1, color: 'yellow', label: 'Sydney', population: '5.3M' },
-    { lat: 48.8566, lng: 2.3522, size: 0.1, color: 'purple', label: 'Paris', population: '2.1M' },
-  ];
-  
+  private data = [];
+  tes = {
+    "CNIC": "4210-23990-239",
+    "FirstName": "Alice",
+    "LastName": "Barry",
+    "Lat": "23.298",
+    "Role": "Admin",
+    "Username": "admin",
+    "long": "102.129"
+}
   private isAutoRotating = true;
 
   constructor(private userService: UserService,private fb: FormBuilder) { }
@@ -56,7 +58,6 @@ export class UsersComponent implements OnInit{
       this.userRoles = ['Agent'];
     }
     this.getAllUsers();  
-    this.earth();  
   }  
 
   earth(){
@@ -74,6 +75,21 @@ export class UsersComponent implements OnInit{
        .showAtmosphere(true)
        .atmosphereColor('lightblue')
        .atmosphereAltitude(0.15)
+       fetch(
+        'https://raw.githubusercontent.com/vasturiano/globe.gl/refs/heads/master/example/datasets/ne_110m_populated_places_simple.geojson'
+      )
+        .then(res => res.json())
+        .then(places => {
+          this.globe
+          .labelsData(places.features)
+          .labelLat((d:any)=> d.properties.latitude)
+          .labelLng((d:any) => d.properties.longitude)
+          .labelText((d:any) => d.properties.name)
+          .labelSize((d:any) => Math.sqrt(d.properties.pop_max) * 4e-4)
+          .labelDotRadius((d:any) => Math.sqrt(d.properties.pop_max) * 4e-4)
+          .labelColor(() => 'rgba(255, 165, 0, 0.75)')
+          .labelResolution(2);
+        });
       //  .globeTileEngineUrl((x, y, l) => `https://tile.openstreetmap.org/${l}/${x}/${y}.png`);
      // Add data points
      this.globe.pointsData(this.data)
@@ -96,11 +112,12 @@ export class UsersComponent implements OnInit{
   .pointAltitude(0.1)
   .pointRadius(0.4)
   .pointLabel((point: any) => `
-    <div class="custom-tooltip">
-      <div class="tooltip-title">${point.label}</div>
+    <div class="custom-tooltip" style="width:500px;height:200px;font-size:30px">
+      <div class="tooltip-title">${point.Username}</div>
       <div class="tooltip-details">
-        <div>Population: ${point.population}</div>
-        <div>Coordinates: ${point.lat.toFixed(2)}, ${point.lng.toFixed(2)}</div>
+        <div>Role : ${point.Role}</div>
+        <div>Full Name: ${point.FirstName}, ${point.LastName}</div>
+        <div>Coordinates: ${point.lat}, ${point.lng}</div>
       </div>
     </div>
   `)
@@ -127,9 +144,17 @@ export class UsersComponent implements OnInit{
   }
 
   addOrUpdateUser() {    
+    console.log("call");
+    console.log(this.userForm.invalid);
+    console.log(this.editMode);
+    console.log(this.editingCNIC);
+        
+    
     if (this.userForm.invalid) return;
 
     if (this.editMode && this.editingCNIC) {
+      console.log("asd");
+      
       this.userForm.get('CNIC')?.enable();
       this.userForm.get('Username')?.enable();      
       let Fulldata = this.users.map((item:any) =>
@@ -172,7 +197,9 @@ export class UsersComponent implements OnInit{
       console.log(this.userForm.value);
       const cnicExists = this.users.some((item:any) => item.CNIC === this.userForm.value.CNIC);
       const usernameExists = this.users.some((item:any) => item.Username === this.userForm.value.Username);
-      const codeExists = this.roles.Agent.some((item:any) => item.ProjectCode === this.projectCode);
+      // const codeExists = this.roles.Agent.some((item:any) => item.ProjectCode === this.projectCode);
+      let code = Object.keys(this.roles.Manager);
+      const codeExists = code.some((item:any) => item === this.projectCode);
 
       if (cnicExists) {
           console.log("Error: CNIC already exists.");
@@ -202,7 +229,6 @@ export class UsersComponent implements OnInit{
           }
           if(this.userForm.value.Role == 'Manager'){
             let code = Object.keys(this.roles.Manager);
-            console.log(code);            
             const managerCodeExists = code.some((item:any) => item === this.projectCode);
             if(!managerCodeExists){
               this.encrypt();
@@ -369,9 +395,7 @@ export class UsersComponent implements OnInit{
         this.users = data.Users;
         this.roles = data.Role;
       }
-      
-      
-      
+      this.makeDataForEarth(this.users)
     });
   }
 
@@ -562,7 +586,7 @@ export class UsersComponent implements OnInit{
  }
 
 
- private setupAutoRotation(): void {
+  private setupAutoRotation(): void {
   const controls = this.globe.controls();
   
   // Auto-rotate configuration
@@ -579,17 +603,47 @@ export class UsersComponent implements OnInit{
   // Zoom limits
   controls.minDistance = 200;
   controls.maxDistance = 800;
-}
+  }
 
 // Public methods to control rotation
-toggleRotation(): void {
-  this.isAutoRotating = !this.isAutoRotating;
-  const controls = this.globe.controls();
-  controls.autoRotate = this.isAutoRotating;
-}
+  toggleRotation(): void {
+    this.isAutoRotating = !this.isAutoRotating;
+    const controls = this.globe.controls();
+    controls.autoRotate = this.isAutoRotating;
+  }
 
-setRotationSpeed(speed: number): void {
-  const controls = this.globe.controls();
-  controls.autoRotateSpeed = speed;
-}
+  setRotationSpeed(speed: number): void {
+    const controls = this.globe.controls();
+    controls.autoRotateSpeed = speed;
+  }
+
+  makeDataForEarth(data:any)
+  {
+    const roleColors:any = {
+      Admin: "#d9534f",     // Red
+      Manager: "#0275d8",   // Blue
+      Agent: "#5cb85c"      // Green
+    };
+
+    const updatedData = data.map((item:any) => {
+      return {
+          ...item,
+          lat: item.Lat,
+          lng: item.long,
+          size: 0.1,
+          color: roleColors[item.Role] || "#999999",
+          // Remove old keys
+          Lat: undefined,
+          long: undefined
+      };
+    });
+    // Clean old keys
+    updatedData.forEach((obj:any) => {
+        delete obj.Lat;
+        delete obj.long;
+    });
+  
+    this.data = updatedData;
+    this.earth();    
+  }
 }

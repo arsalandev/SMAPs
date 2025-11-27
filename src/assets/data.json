@@ -64,13 +64,31 @@
             "long": "652.12723"
         },
         {
-            "CNIC": "2348-1231-1233",
-            "FirstName": "Bob",
-            "LastName": "Alix",
-            "Lat": "12.123",
+            "CNIC": "2130-48134-777",
+            "FirstName": "asd",
+            "LastName": "asd",
+            "Lat": "90.09",
+            "Role": "Agent",
+            "Username": "venombro",
+            "long": "23.3489"
+        },
+        {
+            "CNIC": "9021-38843-0889",
+            "FirstName": "Asad",
+            "LastName": "khan",
+            "Lat": "234",
             "Role": "Manager",
-            "Username": "Balix",
-            "long": "1233.412"
+            "Username": "asd",
+            "long": "234"
+        },
+        {
+            "CNIC": "2130-48134-457",
+            "FirstName": "Kawish",
+            "LastName": "Khan",
+            "Lat": "34.292",
+            "Role": "Agent",
+            "Username": "kkhan",
+            "long": "902.34"
         }
     ],
     "Role": {
@@ -99,10 +117,27 @@
                 "ProjectCode": "USA",
                 "Username": "fben",
                 "password": "SU0Af3SA990Sh3SAS00Av3SAAA1Ai3SA"
+            },
+            {
+                "ProjectCode": "Italy",
+                "Username": "venombro",
+                "password": "tI1az0tall1th0tayl4tw0ta"
+            },
+            {
+                "ProjectCode": "India",
+                "Username": "kkhan",
+                "password": "na1dv0nddi4dm0ndna1dv0ndnd1dn0ndna1db0nd"
             }
         ],
         "Manager": {
             "CAN": [],
+            "India": [
+                {
+                    "ProjectCode": "India",
+                    "Username": "asd",
+                    "password": "na0dv1nddi3dm1ndna0dv1ndnd0dn1ndna0db1nd"
+                }
+            ],
             "Italy": [
                 {
                     "ProjectCode": "Italy",
@@ -114,10 +149,6 @@
                 {
                     "Username": "monty",
                     "password": "323Sw1SA233Sl1SAS23Ar1SA333Sg1SASA3An1SAS33Av1SA"
-                },
-                {
-                    "Username": "Balix",
-                    "password": "3U1Sk8SASU3Az8SA223Sh8SA223Sh8SA"
                 }
             ]
         }

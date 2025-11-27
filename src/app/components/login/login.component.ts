@@ -213,5 +213,18 @@ export class LoginComponent implements OnInit{
     console.log(encrypt);
   }
 
+  getButtonText(): string {
+    switch (this.step) {
+      case 1:
+        return 'CONTINUE TO AUTHENTICATION';
+      case 2:
+        return 'CONTINUE TO VERIFICATION';
+      case 3:
+        return 'AUTHENTICATE';
+      default:
+        return 'LOGIN';
+    }
+  }
+
 
 }
