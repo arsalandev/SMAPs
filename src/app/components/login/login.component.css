@@ -1,89 +1,375 @@
-/* Container */
-.login-container {
-    width: 380px;
+/* Military Style Login with SVG Background */
+:host {
+    display: block;
+    min-height: 90vh;
+    background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Animated SVG Background */
+  .svg-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.15;
+  }
+  
+  .grid-line {
+    stroke: #00ff99;
+    stroke-width: 0.5;
+    stroke-dasharray: 10, 10;
+    animation: gridMove 20s linear infinite;
+  }
+  
+  @keyframes gridMove {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 1000;
+    }
+  }
+  
+  .radar-circle {
+    fill: none;
+    stroke: #00ff99;
+    stroke-width: 1;
+    animation: radarPulse 4s ease-in-out infinite;
+  }
+  
+  @keyframes radarPulse {
+    0%, 100% {
+      stroke-opacity: 0.1;
+      r: 100;
+    }
+    50% {
+      stroke-opacity: 0.3;
+      r: 120;
+    }
+  }
+  
+  /* Military Logo */
+  .military-logo {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 200px;
+    height: 200px;
+    opacity: 0.1;
+    animation: logoGlow 6s ease-in-out infinite;
+  }
+  
+  @keyframes logoGlow {
+    0%, 100% {
+      opacity: 0.08;
+      filter: drop-shadow(0 0 5px rgba(0, 255, 153, 0.2));
+    }
+    50% {
+      opacity: 0.15;
+      filter: drop-shadow(0 0 15px rgba(0, 255, 153, 0.4));
+    }
+  }
+  
+  /* Satellite Animation */
+  .satellite {
+    position: fixed;
+    animation: satelliteOrbit 20s linear infinite;
+  }
+  
+  @keyframes satelliteOrbit {
+    0% {
+      transform: rotate(0deg) translateX(300px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(300px) rotate(-360deg);
+    }
+  }
+  
+  /* Main Login Container */
+  .login-container {
+    position: relative;
+    z-index: 10;
+    width: 420px;
     margin: 80px auto;
-    padding: 30px 25px;
-    background: #1b1b1b; /* dark military-style */
-    border-radius: 10px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.5);
-    color: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 2px solid #2c3e50;
-}
-
-/* Header */
-.login-header h2 {
+    padding: 35px 30px;
+    background: rgba(11, 15, 24, 0.95);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 255, 153, 0.3);
+    box-shadow: 
+      0 0 40px rgba(0, 255, 153, 0.15),
+      inset 0 0 20px rgba(0, 255, 153, 0.05);
+    backdrop-filter: blur(10px);
+    font-family: 'Orbitron', 'Segoe UI', sans-serif;
+    animation: containerAppear 0.8s ease-out;
+  }
+  
+  @keyframes containerAppear {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Header with Animation */
+  .login-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  
+  .login-header h2 {
     margin: 0;
-    text-align: center;
-    color: #00ff99; /* tactical green */
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-}
-
-.login-header p {
-    text-align: center;
-    color: #aaaaaa;
-    margin: 5px 0 20px 0;
+    color: #00ff99;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    animation: textShimmer 3s ease-in-out infinite;
+  }
+  
+  @keyframes textShimmer {
+    0%, 100% {
+      text-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(0, 255, 153, 0.8), 0 0 30px rgba(0, 255, 153, 0.3);
+    }
+  }
+  
+  .login-header p {
+    color: #7af1d4;
+    margin: 10px 0 0;
     font-size: 0.9rem;
-}
-
-/* Body */
-.login-body {
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .login-header p::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ff99, transparent);
+  }
+  
+  /* Body */
+  .login-body {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-}
-
-/* Input Fields */
-.login-body input {
-    padding: 12px 15px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    background-color: #2c3e50;
+    gap: 20px;
+  }
+  
+  /* Input Fields with Military Style */
+  .input-group {
+    position: relative;
+  }
+  
+  .input-group input {
+    width: 84%;
+    padding: 15px 45px 15px 15px;
+    background: rgba(23, 28, 40, 0.8);
+    border: 1px solid rgba(0, 255, 153, 0.2);
+    border-radius: 6px;
     color: #fff;
-    transition: 0.3s;
-}
-
-.login-body input::placeholder {
-    color: #7f8c8d;
-}
-
-.login-body input:focus {
-    background-color: #34495e;
-    box-shadow: 0 0 5px #00ff99;
-}
-
-/* Button */
-.login-body button {
-    padding: 12px 0;
-    border: none;
-    border-radius: 5px;
-    background-color: #00ff99;
-    color: #1b1b1b;
-    font-weight: bold;
     font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.login-body button:hover {
-    background-color: #00cc7a;
-}
-
-/* Footer */
-.login-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.85rem;
-    color: #aaaaaa;
-}
-
-/* Responsive */
-@media (max-width: 420px) {
-    .login-container {
-        width: 90%;
-        padding: 25px 20px;
+    font-family: 'Orbitron', sans-serif;
+    transition: all 0.3s ease;
+  }
+  
+  .input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-color: #00ff99;
+    box-shadow: 
+      0 0 15px rgba(0, 255, 153, 0.3),
+      inset 0 0 10px rgba(0, 255, 153, 0.1);
+    background: rgba(23, 28, 40, 0.9);
+  }
+  
+  .input-group::before {
+    content: '>';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00ff99;
+    font-weight: bold;
+    font-family: monospace;
+  }
+  
+  /* Step Indicator */
+  .step-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+  
+  .step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 255, 153, 0.2);
+    border: 1px solid rgba(0, 255, 153, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .step-dot.active {
+    background: #00ff99;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.7);
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      box-shadow: 0 0 10px rgba(0, 255, 153, 0.7);
     }
-}
+    50% {
+      box-shadow: 0 0 20px rgba(0, 255, 153, 1);
+    }
+  }
+  
+  /* Button */
+  .login-body button {
+    padding: 16px 0;
+    background: linear-gradient(135deg, #00ff99 0%, #00cc7a 100%);
+    border: none;
+    border-radius: 6px;
+    color: #0a0e1a;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .login-body button:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 10px 25px rgba(0, 255, 153, 0.3),
+      0 0 20px rgba(0, 255, 153, 0.2);
+  }
+  
+  .login-body button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .login-body button:hover::before {
+    left: 100%;
+  }
+  
+  /* Footer */
+  .login-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 255, 153, 0.1);
+  }
+  
+  .login-footer p {
+    color: rgba(122, 241, 212, 0.7);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    position: relative;
+  }
+  
+  .login-footer p::before {
+    content: '⚠️';
+    position: absolute;
+    left: -4px;
+    animation: blink 2s infinite;
+  }
+  
+  @keyframes blink {
+    0%, 50%, 100% {
+      opacity: 1;
+    }
+    25%, 75% {
+      opacity: 0.3;
+    }
+  }
+  
+  /* Status Display */
+  .status-display {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(11, 15, 24, 0.9);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 255, 153, 0.2);
+    font-size: 0.8rem;
+    color: #7af1d4;
+    z-index: 10;
+  }
+  
+  .status-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0;
+  }
+  
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ff99;
+    animation: statusPulse 2s infinite;
+  }
+  
+  @keyframes statusPulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 480px) {
+    .login-container {
+      width: 100%;
+      margin: 40px auto;
+      padding: 0px;
+    }
+    
+    .login-header h2 {
+      font-size: 1.8rem;
+    }
+    
+    .military-logo {
+      width: 150px;
+      height: 150px;
+    }
+  }

@@ -1,16 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(10px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class LoginComponent implements OnInit{
 
-  username = 'admin';
-  password = 'admin';
+  username = '';
+  password = '';
 
   UserDetails:any = {
     "Username":"", 
@@ -30,6 +39,19 @@ export class LoginComponent implements OnInit{
   RoleDetails:any ;
 
   step = 1;
+
+  keyStrokes: string[] = [];
+  isAnimating = false;
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key.length === 1 && /[a-zA-Z0-9]/.test(event.key)) {
+      this.keyStrokes.push(event.key);
+      if (this.keyStrokes.length > 5) {
+        this.keyStrokes.shift();
+      }
+    }
+}
 
   constructor(private userService: UserService,private router: Router) {}
 
