@@ -105,6 +105,9 @@
     <button (click)="loginStep()">
       {{ getButtonText() }}
     </button>
+    <p *ngIf="message !== ''"  [ngClass]="messageType">
+      {{message}}
+    </p>
   </div>
 
   <div class="login-footer">

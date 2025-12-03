@@ -373,3 +373,49 @@
       height: 150px;
     }
   }
+
+
+  /* A subtle fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+.success-alert,
+.error-alert,
+.warning-alert {
+  padding: 12px 16px;
+  margin-top: 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  animation: fadeIn 0.4s ease-out;
+  box-shadow: 0 0 12px rgba(0, 255, 153, 0.15);
+}
+
+.success-alert {
+  background: linear-gradient(135deg, #0a0e1a, #1a1f2e);
+  border-left: 5px solid #00ff99;
+  color: #00ff99;
+}
+
+.error-alert {
+  background: linear-gradient(135deg, #1a0d0d, #2a0000);
+  border-left: 5px solid #ff4d4d;
+  color: #ff4d4d;
+  box-shadow: 0 0 12px rgba(255, 77, 77, 0.2);
+}
+
+
+.warning-alert {
+  background: linear-gradient(135deg, #1a1f2e, #2a2f3e);
+  border-left: 5px solid #ffcc00;
+  color: #ffcc00;
+  box-shadow: 0 0 12px rgba(255, 204, 0, 0.2);
+}

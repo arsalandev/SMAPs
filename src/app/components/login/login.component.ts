@@ -43,6 +43,10 @@ export class LoginComponent implements OnInit{
   keyStrokes: string[] = [];
   isAnimating = false;
 
+
+  message = ''; 
+  messageType = '';
+
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key.length === 1 && /[a-zA-Z0-9]/.test(event.key)) {
@@ -79,8 +83,13 @@ export class LoginComponent implements OnInit{
        this.UserDetails = userDetails;
        this.step = 2;
       } else {
-        console.log("Invalid User Name");        
-      }            
+        this.message = 'Invalid User Name';
+        this.messageType = "error-alert";
+        setTimeout(() => {
+          this.message = '';
+          this.messageType = '';
+        }, 3000);       
+      }             
     });
   }
 
@@ -89,19 +98,13 @@ export class LoginComponent implements OnInit{
       const userRole = userinfo.Role;      
     if (userRole === 'Admin') {
         this.RoleDetails = data.Admin.Username === userinfo.Username ? data.Admin : null;
-        // this.projectCode = this.Code + this.UserDetails['CNIC'];
-        // this.Verification(); 
         this.step = 3;      
     } 
     else if (userRole === 'Agent') {
-        // Agent is an array
         this.RoleDetails = data.Agent.find((r:any) => r.Username === userinfo.Username) || null;
-        // this.projectCode = this.Code + this.UserDetails['CNIC'];
-        // this.Verification();
         this.step = 3;
     } 
     else if (userRole === 'Manager') {
-        // Manager is nested by country
         for (let country in data.Manager) {
             const managerList = data.Manager[country];
             const match = managerList.find((r:any) => r.Username === userinfo.Username);
@@ -109,8 +112,6 @@ export class LoginComponent implements OnInit{
               this.RoleDetails =  {...match, ProjectCode: country};
             }
         }
-        // this.projectCode = this.Code + this.UserDetails['CNIC'];
-        // this.Verification();
         this.step = 3;
     }   
     }); 
@@ -123,9 +124,7 @@ export class LoginComponent implements OnInit{
     console.log(this.UserDetails);
     console.log(this.RoleDetails);
     console.log(this.projectCode);
-    console.log(this.Code);
-    
-    
+    console.log(this.Code);        
     this.cipher = {
       "a": this.projectCode[1] + this.projectCode[0] + this.UserDetails['CNIC'][1] + this.projectCode[2] + 'z' + this.UserDetails['CNIC'][3] + this.projectCode[1] + this.projectCode[2],
       "b": this.projectCode[2] + this.projectCode[1] + this.UserDetails['CNIC'][5] + this.projectCode[2] + 'y' + this.UserDetails['CNIC'][3] + this.projectCode[1] + this.projectCode[2],
@@ -192,12 +191,20 @@ export class LoginComponent implements OnInit{
     console.log(encrypt, "Current");
     console.log(this.RoleDetails.password, "Actual");
     if(encrypt == this.RoleDetails.password){
-      console.log("Login");
-      localStorage.setItem("token",encrypt);
-      this.router.navigate(['/dashboard']);
+      this.message = "Login successful!";
+      this.messageType = "success-alert";
+      setTimeout(() => {
+        localStorage.setItem("token",encrypt);
+        this.router.navigate(['/dashboard']);        
+      }, 1500);
+
     } else {
-      console.log("Wrong Credentails");
-      
+      this.message = 'Wrong Credentails';
+      this.messageType = "warning-alert";
+      setTimeout(() => {
+        this.message = '';
+        this.messageType = '';
+      }, 3000);
     }
 
     this.decrypt();
@@ -247,6 +254,5 @@ export class LoginComponent implements OnInit{
         return 'LOGIN';
     }
   }
-
 
 }
