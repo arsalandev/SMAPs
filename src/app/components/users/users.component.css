@@ -1,0 +1,591 @@
+/* ===== Base Styles ===== */
+:host {
+    display: block;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 100%);
+    color: #ffffff;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  
+  /* ===== Layout Structure ===== */
+  .globe-container-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  #globeContainer {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  /* ===== Logout Button ===== */
+  .logout-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: rgba(26, 31, 46, 0.85);
+    color: #00ff99;
+    border: 1px solid rgba(0, 255, 153, 0.3);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+  }
+  
+  .logout-btn:hover {
+    background: rgba(0, 255, 153, 0.15);
+    border-color: #00ff99;
+    box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  /* ===== User CRUD Panel ===== */
+  .user-crud {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 85%;
+    max-width: 1500px;
+    height: 100vh;
+    background: rgba(10, 14, 26, 0.95);
+    backdrop-filter: blur(10px);
+    border-left: 1px solid rgba(0, 255, 153, 0.2);
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: auto;
+    z-index: 50;
+    transition: transform 0.3s ease;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Make panel wider on larger screens */
+  @media (min-width: 1400px) {
+    .user-crud {
+      width: 90%;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .user-crud {
+      width: 95%;
+    }
+  }
+  
+  .user-crud::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .user-crud::-webkit-scrollbar-track {
+    background: rgba(26, 31, 46, 0.5);
+    border-radius: 10px;
+  }
+  
+  .user-crud::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 153, 0.5);
+    border-radius: 10px;
+  }
+  
+  .user-crud::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 153, 0.7);
+  }
+  
+  /* ===== Form Styles ===== */
+  .user-crud form {
+    background: rgba(26, 31, 46, 0.7);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(0, 255, 153, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .user-crud h2 {
+    color: #00ff99;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(0, 255, 153, 0.3);
+    padding-bottom: 10px;
+  }
+  
+  /* Form grid layout for better organization */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-crud input,
+  .user-crud select {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(10, 14, 26, 0.8);
+    border: 1px solid rgba(0, 255, 153, 0.3);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  .user-crud label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
+  
+  .user-crud input:focus,
+  .user-crud select:focus {
+    outline: none;
+    border-color: #00ff99;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.2);
+  }
+  
+  .user-crud input:disabled {
+    background: rgba(26, 31, 46, 0.5);
+    color: #888;
+    border-color: rgba(0, 255, 153, 0.1);
+  }
+  
+  .user-crud input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .user-crud select option {
+    background: #1a1f2e;
+    color: #fff;
+  }
+  
+  /* ===== Form Buttons ===== */
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .user-crud button[type="submit"],
+  .user-crud button[type="button"] {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+  }
+  
+  .user-crud button[type="submit"] {
+    background: linear-gradient(135deg, #00cc7a 0%, #00ff99 100%);
+    color: #0a0e1a;
+  }
+  
+  .user-crud button[type="submit"]:hover {
+    background: linear-gradient(135deg, #00ff99 0%, #00cc7a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 153, 0.4);
+  }
+  
+  .user-crud button[type="button"] {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .user-crud button[type="button"]:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  /* ===== Role Sections ===== */
+  .role-section {
+    background: rgba(26, 31, 46, 0.7);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(0, 255, 153, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+  }
+  
+  .role-section h3 {
+    color: #00ff99;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    left: 0;
+  }
+  
+  .role-section h3::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #00ff99;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  /* ===== Table Styles ===== */
+  .role-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 13px;
+    min-width: 1200px; /* Minimum width to ensure all columns are visible */
+  }
+  
+  .role-section th {
+    background: rgba(0, 255, 153, 0.1);
+    color: #00ff99;
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(0, 255, 153, 0.3);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .role-section td {
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    vertical-align: middle;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .role-section tr:hover {
+    background: rgba(0, 255, 153, 0.05);
+  }
+  
+  .role-section tr:last-child td {
+    border-bottom: none;
+  }
+  
+  /* Column width adjustments */
+  .role-section th:nth-child(1), /* CNIC */
+  .role-section td:nth-child(1) {
+    min-width: 120px;
+    max-width: 150px;
+  }
+  
+  .role-section th:nth-child(2), /* First Name */
+  .role-section td:nth-child(2),
+  .role-section th:nth-child(3), /* Last Name */
+  .role-section td:nth-child(3) {
+    min-width: 100px;
+    max-width: 120px;
+  }
+  
+  .role-section th:nth-child(4), /* Username */
+  .role-section td:nth-child(4) {
+    min-width: 100px;
+    max-width: 120px;
+  }
+  
+  .role-section th:nth-child(5), /* Lat */
+  .role-section td:nth-child(5),
+  .role-section th:nth-child(6), /* Long */
+  .role-section td:nth-child(6) {
+    min-width: 80px;
+    max-width: 100px;
+  }
+  
+  .role-section th:nth-child(7), /* Agents (for Manager) */
+  .role-section td:nth-child(7) {
+    min-width: 60px;
+    max-width: 80px;
+    text-align: center;
+  }
+  
+  .role-section th:nth-child(8), /* Code */
+  .role-section td:nth-child(8) {
+    min-width: 100px;
+    max-width: 150px;
+  }
+  
+  .role-section th:nth-child(9), /* Password */
+  .role-section td:nth-child(9) {
+    min-width: 120px;
+    max-width: 180px;
+  }
+  
+  .role-section th:nth-child(10), /* Actions */
+  .role-section td:nth-child(10) {
+    min-width: 120px;
+    max-width: 150px;
+    position: sticky;
+    right: 0;
+    background: rgba(26, 31, 46, 0.9);
+    z-index: 5;
+  }
+  
+  /* ===== Action Buttons ===== */
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+  
+  .action-buttons button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  
+  .action-buttons button:first-child {
+    background: rgba(0, 150, 255, 0.2);
+    color: #4db8ff;
+    border: 1px solid rgba(0, 150, 255, 0.3);
+  }
+  
+  .action-buttons button:first-child:hover {
+    background: rgba(0, 150, 255, 0.3);
+    border-color: #4db8ff;
+  }
+  
+  .action-buttons button:last-child {
+    background: rgba(255, 50, 50, 0.2);
+    color: #ff6666;
+    border: 1px solid rgba(255, 50, 50, 0.3);
+  }
+  
+  .action-buttons button:last-child:hover {
+    background: rgba(255, 50, 50, 0.3);
+    border-color: #ff6666;
+  }
+  
+  /* ===== Responsive Design ===== */
+  @media (max-width: 768px) {
+    .user-crud {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-left: none;
+      border-top: 1px solid rgba(0, 255, 153, 0.2);
+    }
+    
+    .logout-btn {
+      top: 10px;
+      right: 10px;
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+    
+    .role-section {
+      padding: 15px;
+    }
+    
+    .role-section table {
+      font-size: 12px;
+      min-width: 1000px;
+    }
+    
+    .role-section th,
+    .role-section td {
+      padding: 8px 6px;
+    }
+    
+    .action-buttons {
+      flex-direction: row;
+      gap: 5px;
+    }
+    
+    .action-buttons button {
+      padding: 5px 8px;
+      font-size: 11px;
+    }
+  }
+  
+  /* ===== Animation for Form Appearance ===== */
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .user-crud {
+    animation: slideInRight 0.5s ease-out;
+  }
+  
+  /* ===== Loading State ===== */
+  .user-crud.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  
+  .user-crud.loading::after {
+    content: "Loading...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ff99;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  /* ===== Empty State ===== */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .empty-state i {
+    display: block;
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: rgba(0, 255, 153, 0.3);
+  }
+  
+  /* ===== Role-specific styling ===== */
+  .role-section.Admin {
+    border-left: 4px solid #ff3366;
+  }
+  
+  .role-section.Manager {
+    border-left: 4px solid #3366ff;
+  }
+  
+  .role-section.Agent {
+    border-left: 4px solid #00ff99;
+  }
+  
+  /* ===== Password field styling ===== */
+  .password-cell {
+    font-family: monospace;
+    letter-spacing: 1px;
+    color: #ffcc00;
+    font-size: 12px;
+  }
+  
+  /* ===== Table Controls ===== */
+  .table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(26, 31, 46, 0.5);
+    border-radius: 6px;
+  }
+  
+  .table-info {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .table-scroll-hint {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 11px;
+    color: rgba(0, 255, 153, 0.7);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 3px 8px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .table-scroll-hint i {
+    font-size: 14px;
+  }
+  
+
+
+  /* Toggle Button */
+.toggle-overlay-btn {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    padding: 10px 20px;
+    background: rgba(26, 31, 46, 0.85);
+    color: #00ff99;
+    border: 1px solid rgba(0, 255, 153, 0.3);
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 101;
+    backdrop-filter: blur(5px);
+    transition: all 0.5s ease;
+  }
+  
+  .toggle-overlay-btn:hover {
+    background: rgba(0, 255, 153, 0.15);
+    border-color: #00ff99;
+    box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
+  }
+  
+  /* Overlay Panel */
+  .overlay-panel {
+    position: fixed;
+    top: 0;
+    right: -100%; /* hidden initially */
+    width: 85%;
+    max-width: 1500px;
+    height: 100vh;
+    background: rgba(10, 14, 26, 0.95);
+    backdrop-filter: blur(10px);
+    border-left: 1px solid rgba(0, 255, 153, 0.2);
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: auto;
+    z-index: 100;
+    transition: right 0.4s ease, opacity 0.4s ease;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+  }
+  
+  /* Open state */
+  .overlay-panel.open {
+    right: 0;
+    opacity: 1;
+  }
+  
+  /* Add slide-in animation */
+  .overlay-panel {
+    animation: slideInRight 0.5s ease-out;
+  }
+  
+  /* Keep your existing animations and scrollbars */
+  

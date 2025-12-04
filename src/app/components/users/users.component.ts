@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import Globe from 'globe.gl';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,18 +24,9 @@ export class UsersComponent implements OnInit{
   @ViewChild('globeContainer', { static: true }) globeContainer!: ElementRef;
   private globe: any;
   private data = [];
-  tes = {
-    "CNIC": "4210-23990-239",
-    "FirstName": "Alice",
-    "LastName": "Barry",
-    "Lat": "23.298",
-    "Role": "Admin",
-    "Username": "admin",
-    "long": "102.129"
-}
   private isAutoRotating = true;
 
-  constructor(private userService: UserService,private fb: FormBuilder) { }
+  constructor(private userService: UserService,private fb: FormBuilder,private router: Router) { }
 
   ngOnInit() {
     
@@ -646,4 +638,16 @@ export class UsersComponent implements OnInit{
     this.data = updatedData;
     this.earth();    
   }
+
+  logout(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
+  overlayOpen = false;
+
+  toggleOverlay() {
+    this.overlayOpen = !this.overlayOpen;
+  }
+  
 }

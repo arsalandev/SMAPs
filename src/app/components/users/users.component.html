@@ -1,64 +1,117 @@
-<div #globeContainer style="width:100%; height:100vh;"></div>
-<div class="user-crud">
+<button class="logout-btn" (click)="logout()">Logout</button>
+<!-- Overlay Toggle Button -->
+<button class="toggle-overlay-btn" (click)="toggleOverlay()">
+  {{ overlayOpen ? 'Close Panel' : 'Open Panel' }}
+</button>
+
+
+<div class="globe-container-wrapper">
+  <div #globeContainer id="globeContainer"></div>
+</div>
+<div class="user-crud overlay-panel" [class.open]="overlayOpen">
   <form [formGroup]="userForm" (ngSubmit)="addOrUpdateUser()" *ngIf="UserRole !== 'Agent'">
-    <input formControlName="CNIC" placeholder="CNIC"/>
-    <input formControlName="FirstName" placeholder="First Name" />
-    <input formControlName="LastName" placeholder="Last Name" />
-    <input formControlName="Username" placeholder="Username" />
-    <select formControlName="Role" *ngIf="!editMode">
-      <option value="Agent">Agent </option>
-      <option value="Manager" *ngIf="UserRole !== 'Manager'">Manager</option>
-    </select>
-    <input formControlName="Lat" placeholder="Latitude" />
-    <input formControlName="long" placeholder="Longitude" />
-    <input placeholder="Project Code" [(ngModel)]="projectCode" [ngModelOptions]="{standalone: true}" [disabled]="editMode && (userForm.value.Role === 'Agent' || userForm.value.Role === 'Manager')"/>
-    <input placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"/>
-    <!-- <button type="button" *ngIf="editMode" (click)="decrypt()">Decrypt</button> -->
-    <button type="submit">{{ editMode ? 'Update' : 'Add' }} User</button>
-    <button type="button" (click)="cancelEdit()">Cancel</button>
+    <h2>{{ editMode ? 'Edit User' : 'Add New User' }}</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>CNIC</label>
+        <input formControlName="CNIC" placeholder="CNIC"/>
+      </div>
+      <div class="form-group">
+        <label>First Name</label>
+        <input formControlName="FirstName" placeholder="First Name" />
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input formControlName="LastName" placeholder="Last Name" />
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input formControlName="Username" placeholder="Username" />
+      </div>
+      <div class="form-group" *ngIf="!editMode">
+        <label>Role</label>
+        <select formControlName="Role">
+          <option value="Agent">Agent</option>
+          <option value="Manager" *ngIf="UserRole !== 'Manager'">Manager</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Latitude</label>
+        <input formControlName="Lat" placeholder="Latitude" />
+      </div>
+      <div class="form-group">
+        <label>Longitude</label>
+        <input formControlName="long" placeholder="Longitude" />
+      </div>
+      <div class="form-group">
+        <label>Project Code</label>
+        <input placeholder="Project Code" [(ngModel)]="projectCode" [ngModelOptions]="{standalone: true}" [disabled]="editMode && (userForm.value.Role === 'Agent' || userForm.value.Role === 'Manager')"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="password"/>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit">{{ editMode ? 'Update' : 'Add' }} User</button>
+      <button type="button" (click)="cancelEdit()">Cancel</button>
+    </div>
   </form>
 
-  <ng-container *ngIf="users.length !== 0">
-    <div *ngFor="let role of userRoles" class="role-section">
-      <h3 *ngIf="userRoles">{{ role }}s</h3>
-      <table border="1">
-        <tr>
-          <th>CNIC</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-          <th>Lat</th>
-          <th>Long</th>
-          <th *ngIf="role == 'Manager'">Agents</th>
-          <th>Code</th>
-          <th>Password</th>
-          <th *ngIf="UserRole !== 'Agent'">Actions</th>
-        </tr>
-        <ng-container *ngFor="let user of getUsersByRole(role)">
-        <tr>
-          <td>{{ user.CNIC }}</td>
-          <td>{{ user.FirstName }}</td>
-          <td>{{ user.LastName }}</td>
-          <td>{{ user.Username }}</td>
-          <td>{{ user.Lat || '-' }}</td>
-          <td>{{ user.long || '-' }}</td>
-          <td *ngIf="role == 'Manager'">{{ countAgentsByKey(getCode(role,user)) }}</td>
-          <td *ngIf="role == 'Admin'">{{ roles[role].ProjectCode }}</td>
-          <td *ngIf="role == 'Admin'">{{ roles[role].password }}</td>
-          <td *ngIf="role == 'Agent'">{{ fetchCode(role,user )}}</td>
-          <td *ngIf="role == 'Agent'">{{ fetchPassword(role,user) }}</td>
-          <td *ngIf="role == 'Manager'">{{ getCode(role,user )}}</td>
-          <td *ngIf="role == 'Manager'">{{ getPassword(role,user) }}</td>
-          <td *ngIf="UserRole !== 'Agent'">
-            <button (click)="editUser(user)" *ngIf="UserRole !== 'Agent'">Edit</button>
-            <button *ngIf="role !== 'Admin' && UserRole !== 'Agent'" (click)="deleteUser(user)">Delete</button>
-          </td>
-        </tr>
-      </ng-container>
+  <ng-container *ngIf="users.length !== 0; else emptyState">
+    <div *ngFor="let role of userRoles" [class]="'role-section ' + role">
+      <div class="table-controls">
+        <h3>{{ role }}s</h3>
+        <div class="table-info">Scroll horizontally to see all columns →</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>CNIC</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Lat</th>
+            <th>Long</th>
+            <th *ngIf="role == 'Manager'">Agents</th>
+            <th>Code</th>
+            <th class="password-cell">Password</th>
+            <th *ngIf="UserRole !== 'Agent'">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let user of getUsersByRole(role)">
+            <tr>
+              <td>{{ user.CNIC }}</td>
+              <td>{{ user.FirstName }}</td>
+              <td>{{ user.LastName }}</td>
+              <td>{{ user.Username }}</td>
+              <td>{{ user.Lat || '-' }}</td>
+              <td>{{ user.long || '-' }}</td>
+              <td *ngIf="role == 'Manager'">{{ countAgentsByKey(getCode(role,user)) }}</td>
+              <td *ngIf="role == 'Admin'">{{ roles[role].ProjectCode }}</td>
+              <td *ngIf="role == 'Admin'" class="password-cell">{{ roles[role].password }}</td>
+              <td *ngIf="role == 'Agent'">{{ fetchCode(role,user )}}</td>
+              <td *ngIf="role == 'Agent'" class="password-cell">{{ fetchPassword(role,user) }}</td>
+              <td *ngIf="role == 'Manager'">{{ getCode(role,user )}}</td>
+              <td *ngIf="role == 'Manager'" class="password-cell">{{ getPassword(role,user) }}</td>
+              <td *ngIf="UserRole !== 'Agent'">
+                <div class="action-buttons">
+                  <button (click)="editUser(user)" *ngIf="UserRole !== 'Agent'">Edit</button>
+                  <button *ngIf="role !== 'Admin' && UserRole !== 'Agent'" (click)="deleteUser(user)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
       </table>
     </div>
   </ng-container>
   
-  
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <i>👤</i>
+      <p>No users found. Add your first user above.</p>
+    </div>
+  </ng-template>
 </div>
-

@@ -26,9 +26,4 @@ export class DashboardComponent implements OnInit{
     this.Roleinfo = JSON.parse(roleParse);
     this.Role = this.Userinfo.Role;
   }
-
-  logout(){
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
-  }
 }
