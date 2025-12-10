@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit{
   private globe: any;
   private data = [];
   private isAutoRotating = true;
+  allusers: any = [];
 
   constructor(private userService: UserService,private fb: FormBuilder,private router: Router) { }
 
@@ -132,7 +133,7 @@ export class UsersComponent implements OnInit{
  
      // Append to DOM
      this.globe(container);
-     this.setupAutoRotation();
+    //  this.setupAutoRotation();
   }
 
   addOrUpdateUser() {    
@@ -297,21 +298,30 @@ export class UsersComponent implements OnInit{
     console.log(user);
     console.log(this.users);
     if(user.Role == 'Agent'){
-      this.users = this.users.filter((item:any) => item.CNIC !== user.CNIC);  
+      this.users = this.users.filter((item:any) => item.CNIC !== user.CNIC); 
+      this.allusers = this.allusers.filter((item:any) => item.CNIC !== user.CNIC);  
       this.roles.Agent = this.roles.Agent.filter((item:any) => item.Username !== user.Username);    
       let data = { 
-        Users: this.users,
+        Users: this.allusers,
         Role:this.roles
       };    
+     console.log(data);
+     
       this.saveData(data);
     } else if(user.Role == 'Manager'){
-      this.users = this.users.filter((item:any) => item.CNIC !== user.CNIC);  
+      this.users =  this.users.filter((item:any) => item.CNIC !== user.CNIC);  
       let code  = this.getCode(user.Role,user);
-      this.roles.Manager[code] = this.roles.Manager[code].filter((item:any) => item.Username !== user.Username);    
+      this.roles.Manager[code] = this.roles.Manager[code].filter((item:any) => item.Username !== user.Username);
+      let username = this.roles.Agent.filter((item:any) => item.ProjectCode == code);
+      this.roles.Agent = this.roles.Agent.filter((item:any) => item.ProjectCode !== code);
+      const deleteUsernames = new Set(username.map((u:any) => u.Username));
+      this.users =  this.users.filter((u:any) => !deleteUsernames.has(u.Username));
       let data = { 
-        Users: this.users,
+        Users:  this.users,
         Role:this.roles
       };    
+      console.log(data);
+      
       this.saveData(data);     
     }
   }
@@ -387,6 +397,7 @@ export class UsersComponent implements OnInit{
         this.users = data.Users;
         this.roles = data.Role;
       }
+      this.allusers = data.Users;
       this.makeDataForEarth(this.users)
     });
   }

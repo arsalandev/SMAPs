@@ -255,4 +255,31 @@ export class LoginComponent implements OnInit{
     }
   }
 
+  reset(){
+    this.username = '';
+    this.password = '';
+
+    this.UserDetails = {
+    "Username":"", 
+    "FirstName": "" ,
+    "LastName": "" ,
+    "CNIC":"" ,
+    "Role":"",
+    "Lat":"",
+    "long":""
+    };
+  
+    this.Code = '';
+    this.projectCode = ''; 
+
+    this.cipher = {} ;
+
+    this.RoleDetails = undefined ;
+
+    this.step = 1;
+
+    this.message = ''; 
+    this.messageType = '';
+  }
+
 }
