@@ -44,10 +44,11 @@
   }
   
   .logout-btn:hover {
-    background: rgba(0, 255, 153, 0.15);
+    background: rgba(0, 255, 153, 0.75);
     border-color: #00ff99;
     box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
     transform: translateY(-2px);
+    color: #0a0e1a;
   }
   
   /* ===== User CRUD Panel ===== */
@@ -231,7 +232,7 @@
   .role-section h3 {
     color: #00ff99;
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-size: 1.3rem;
     font-weight: 600;
     display: flex;
@@ -254,15 +255,15 @@
   .role-section table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: 13px;
-    min-width: 1200px; /* Minimum width to ensure all columns are visible */
+    min-width: 600px; /* Minimum width to ensure all columns are visible */
   }
   
   .role-section th {
     background: rgba(0, 255, 153, 0.1);
     color: #00ff99;
-    padding: 12px 10px;
+    padding: 6px 8px;
     text-align: left;
     font-weight: 600;
     border-bottom: 2px solid rgba(0, 255, 153, 0.3);
@@ -503,8 +504,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
     background: rgba(26, 31, 46, 0.5);
     border-radius: 6px;
   }
@@ -545,15 +546,16 @@
     border: 1px solid rgba(0, 255, 153, 0.3);
     border-radius: 6px;
     cursor: pointer;
-    z-index: 101;
+    z-index: 1010;
     backdrop-filter: blur(5px);
     transition: all 0.5s ease;
   }
   
   .toggle-overlay-btn:hover {
-    background: rgba(0, 255, 153, 0.15);
+    background: rgba(0, 255, 153, 0.75);
     border-color: #00ff99;
     box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
+    color: #1a1f2e;
   }
   
   /* Overlay Panel */
@@ -561,7 +563,7 @@
     position: fixed;
     top: 0;
     right: -100%; /* hidden initially */
-    width: 85%;
+    width: 45%;
     max-width: 1500px;
     height: 100vh;
     background: rgba(10, 14, 26, 0.95);
@@ -570,7 +572,7 @@
     padding: 20px;
     overflow-y: auto;
     overflow-x: auto;
-    z-index: 100;
+    z-index: 1000;
     transition: right 0.4s ease, opacity 0.4s ease;
     box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
     opacity: 0;
@@ -580,6 +582,7 @@
   .overlay-panel.open {
     right: 0;
     opacity: 1;
+    z-index: 1000;
   }
   
   /* Add slide-in animation */
@@ -588,4 +591,8 @@
   }
   
   /* Keep your existing animations and scrollbars */
-  
+  #map {
+    /* margin-top: 120px; */
+    height: 100%;
+    width: 100%;
+  }

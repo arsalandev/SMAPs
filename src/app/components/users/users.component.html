@@ -1,13 +1,16 @@
-<button class="logout-btn" (click)="logout()">Logout</button>
+<button class="logout-btn" (click)="viewChange(view == 'map'?'earth':'map')" style="z-index: 1000;left: 60px;width: 100px;">View</button>
+<button class="logout-btn" (click)="logout()" style="z-index: 1000;">Logout</button>
 <!-- Overlay Toggle Button -->
 <button class="toggle-overlay-btn" (click)="toggleOverlay()">
   {{ overlayOpen ? 'Close Panel' : 'Open Panel' }}
 </button>
 
-
-<div class="globe-container-wrapper">
+<div id="map" *ngIf="view == 'map'"></div>
+<div class="globe-container-wrapper" *ngIf="view == 'earth'">
   <div #globeContainer id="globeContainer"></div>
 </div>
+
+
 <div class="user-crud overlay-panel" [class.open]="overlayOpen">
   <form [formGroup]="userForm" (ngSubmit)="addOrUpdateUser()" *ngIf="UserRole !== 'Agent'">
     <h2>{{ editMode ? 'Edit User' : 'Add New User' }}</h2>
@@ -68,11 +71,11 @@
         <thead>
           <tr>
             <th>CNIC</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <!-- <th>First Name</th>
+            <th>Last Name</th> -->
             <th>Username</th>
-            <th>Lat</th>
-            <th>Long</th>
+            <!-- <th>Lat</th>
+            <th>Long</th> -->
             <th *ngIf="role == 'Manager'">Agents</th>
             <th>Code</th>
             <th class="password-cell">Password</th>
@@ -83,11 +86,11 @@
           <ng-container *ngFor="let user of getUsersByRole(role)">
             <tr>
               <td>{{ user.CNIC }}</td>
-              <td>{{ user.FirstName }}</td>
-              <td>{{ user.LastName }}</td>
+              <!-- <td>{{ user.FirstName }}</td>
+              <td>{{ user.LastName }}</td> -->
               <td>{{ user.Username }}</td>
-              <td>{{ user.Lat || '-' }}</td>
-              <td>{{ user.long || '-' }}</td>
+              <!-- <td>{{ user.Lat || '-' }}</td>
+              <td>{{ user.long || '-' }}</td> -->
               <td *ngIf="role == 'Manager'">{{ countAgentsByKey(getCode(role,user)) }}</td>
               <td *ngIf="role == 'Admin'">{{ roles[role].ProjectCode }}</td>
               <td *ngIf="role == 'Admin'" class="password-cell">{{ roles[role].password }}</td>

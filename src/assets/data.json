@@ -4,16 +4,16 @@
             "CNIC": "4210-23990-239",
             "FirstName": "Alice",
             "LastName": "Barry",
-            "Lat": "30.3753",
+            "Lat": "23.298",
             "Role": "Admin",
             "Username": "admin",
-            "long": "69.3451"
+            "long": "102.129"
         },
         {
             "CNIC": "2130-48134-853",
             "FirstName": "Vendy",
             "LastName": "Brock",
-            "Lat": "12.23",
+            "Lat": "129.23",
             "Role": "Agent",
             "Username": "venom",
             "long": "32.23"

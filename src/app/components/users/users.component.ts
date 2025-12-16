@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import Globe from 'globe.gl';
 import { Router } from '@angular/router';
+import * as L from 'leaflet';
 
 
 @Component({
@@ -21,16 +22,17 @@ export class UsersComponent implements OnInit{
   projectCode:any;
   password:any;
   UserRole = '';
-  @ViewChild('globeContainer', { static: true }) globeContainer!: ElementRef;
+  @ViewChild('globeContainer', { static: false }) globeContainer!: ElementRef;
   private globe: any;
   private data = [];
   private isAutoRotating = true;
   allusers: any = [];
 
+  view = 'map';
+
   constructor(private userService: UserService,private fb: FormBuilder,private router: Router) { }
 
   ngOnInit() {
-    
     this.userForm = this.fb.group({
       CNIC: ['', Validators.required],
       FirstName: ['', Validators.required],
@@ -647,7 +649,9 @@ export class UsersComponent implements OnInit{
     });
   
     this.data = updatedData;
-    this.earth();    
+    console.log(this.data);
+    this.initMap();
+    // this.earth();    
   }
 
   logout(){
@@ -659,6 +663,78 @@ export class UsersComponent implements OnInit{
 
   toggleOverlay() {
     this.overlayOpen = !this.overlayOpen;
+  }
+
+  private map!: L.Map;
+  private initMap(): void {
+    this.map = L.map('map').setView([24.8607, 67.0011], 3); 
+    // L.tileLayer(
+    //   'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    //   {
+    //     attribution: '© OpenStreetMap © CARTO'
+    //   }
+    // ).addTo(this.map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(this.map);
+
+    this.addDataMarkers();
+  }
+
+  private addDataMarkers(): void {
+    // Assuming you have access to your data array
+    let data:any = this.data; // Make sure you have your data accessible here
+    
+    if (!data || !Array.isArray(data)) return;
+  
+    data.forEach(item => {
+      // Parse latitude and longitude from string to number
+      const lat = parseFloat(item.lat);
+      const lng = parseFloat(item.lng);
+      
+      // Skip if coordinates are invalid
+      if (isNaN(lat) || isNaN(lng)) {
+        console.warn(`Invalid coordinates for ${item.FirstName} ${item.LastName}`);
+        return;
+      }
+  
+      // Create marker with custom size and color
+      const marker = L.circleMarker([lat, lng], {
+        radius: item.size * 100, // Scale the size if needed (0.1 * 100 = 10px)
+        color: item.color,
+        fillColor: item.color,
+        fillOpacity: 0.8,
+        weight: 2
+      }).addTo(this.map);
+  
+      // Create popup content
+      const popupContent = `
+        <div style="font-family: Arial, sans-serif; padding: 5px;">
+          <strong>Name:</strong> ${item.FirstName} ${item.LastName}<br>
+          <strong>Role:</strong> ${item.Role}<br>
+          <strong>Username:</strong> ${item.Username}<br>
+          <strong>CNIC:</strong> ${item.CNIC}<br>
+          <strong>Location:</strong> ${lat.toFixed(3)}, ${lng.toFixed(3)}
+        </div>
+      `;
+  
+      // Bind popup to marker
+      marker.bindPopup(popupContent);
+    });
+  }
+
+  viewChange(item:any){
+    if(item === 'map'){
+      this.view = 'map';
+      setTimeout(() => {
+        this.initMap();
+      }, 1000);
+    } else {
+      this.view = 'earth';
+      setTimeout(() => {
+         this.earth();
+      }, 1000);
+    }
   }
   
 }
