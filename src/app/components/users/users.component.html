@@ -13,7 +13,13 @@
 
 <div class="user-crud overlay-panel" [class.open]="overlayOpen">
   <form [formGroup]="userForm" (ngSubmit)="addOrUpdateUser()" *ngIf="UserRole !== 'Agent'">
-    <h2>{{ editMode ? 'Edit User' : 'Add New User' }}</h2>
+    <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: flex-start;">
+      <h2>{{ editMode ? 'Edit User' : 'Add New User' }}</h2>
+      <p style="position: relative;bottom: 10px;" [style.color]="message[0] === 'S' ? '#00ff99' : '#ff6666'">
+        {{message}} :
+      </p>
+    </div>
+    
     <div class="form-grid">
       <div class="form-group">
         <label>CNIC</label>
@@ -54,10 +60,10 @@
         <label>Password</label>
         <input placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="text"/>
       </div>
-    </div>
-    <div class="form-actions">
-      <button type="submit">{{ editMode ? 'Update' : 'Add' }} User</button>
-      <button type="button" (click)="cancelEdit()">Cancel</button>
+      <div class="form-actions">
+        <button type="submit">{{ editMode ? 'Update' : 'Add' }}</button>
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
     </div>
   </form>
 

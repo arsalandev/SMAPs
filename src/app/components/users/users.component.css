@@ -29,7 +29,7 @@
   .logout-btn {
     position: fixed;
     top: 20px;
-    right: 20px;
+    right: 55px;
     padding: 10px 20px;
     background: rgba(26, 31, 46, 0.85);
     color: #00ff99;
@@ -105,9 +105,9 @@
   /* ===== Form Styles ===== */
   .user-crud form {
     background: rgba(26, 31, 46, 0.7);
-    padding: 25px;
+    padding: 10px 20px;  
     border-radius: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 8px;
     border: 1px solid rgba(0, 255, 153, 0.1);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   }
@@ -115,19 +115,19 @@
   .user-crud h2 {
     color: #00ff99;
     margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
     font-weight: 600;
     border-bottom: 2px solid rgba(0, 255, 153, 0.3);
-    padding-bottom: 10px;
+    padding-bottom: 5px;
   }
   
   /* Form grid layout for better organization */
   .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 0px;
   }
   
   .form-group {
@@ -143,7 +143,7 @@
     border: 1px solid rgba(0, 255, 153, 0.3);
     border-radius: 6px;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 12px;
     transition: all 0.3s ease;
     box-sizing: border-box;
   }
@@ -181,7 +181,8 @@
   .form-actions {
     display: flex;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 18px;
+    width: 220px;
   }
   
   .user-crud button[type="submit"],
@@ -538,8 +539,8 @@
   /* Toggle Button */
 .toggle-overlay-btn {
     position: fixed;
-    top: 70px;
-    right: 20px;
+    top: 175px;
+    right: 55px;
     padding: 10px 20px;
     background: rgba(26, 31, 46, 0.85);
     color: #00ff99;
@@ -551,12 +552,12 @@
     transition: all 0.5s ease;
   }
   
-  .toggle-overlay-btn:hover {
-    background: rgba(0, 255, 153, 0.75);
-    border-color: #00ff99;
-    box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
-    color: #1a1f2e;
-  }
+.toggle-overlay-btn:hover {
+  background: rgba(0, 255, 153, 0.75);
+  border-color: #00ff99;
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.3);
+  color: #1a1f2e;
+}
   
   /* Overlay Panel */
   .overlay-panel {

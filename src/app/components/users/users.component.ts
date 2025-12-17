@@ -29,6 +29,7 @@ export class UsersComponent implements OnInit{
   allusers: any = [];
 
   view = 'map';
+  message = '';
 
   constructor(private userService: UserService,private fb: FormBuilder,private router: Router) { }
 
@@ -138,8 +139,7 @@ export class UsersComponent implements OnInit{
     //  this.setupAutoRotation();
   }
 
-  addOrUpdateUser() {    
-    console.log("call");
+  addOrUpdateUser() {  
     console.log(this.userForm.invalid);
     console.log(this.editMode);
     console.log(this.editingCNIC);
@@ -148,7 +148,6 @@ export class UsersComponent implements OnInit{
     if (this.userForm.invalid) return;
 
     if (this.editMode && this.editingCNIC) {
-      console.log("asd");
       
       this.userForm.get('CNIC')?.enable();
       this.userForm.get('Username')?.enable();      
@@ -188,23 +187,29 @@ export class UsersComponent implements OnInit{
       this.saveData(data);
       this.cancelEdit();
     } else {
-      console.log(this.users);      
-      console.log(this.userForm.value);
       const cnicExists = this.users.some((item:any) => item.CNIC === this.userForm.value.CNIC);
       const usernameExists = this.users.some((item:any) => item.Username === this.userForm.value.Username);
-      // const codeExists = this.roles.Agent.some((item:any) => item.ProjectCode === this.projectCode);
       let code = Object.keys(this.roles.Manager);
       const codeExists = code.some((item:any) => item === this.projectCode);
 
       if (cnicExists) {
-          console.log("Error: CNIC already exists.");
+          this.message = 'CNIC Already Exists';
+          setTimeout(() => {
+            this.message = '';
+          }, 3000);
       } else if (usernameExists) {
-          console.log("Error: Username already exists.");
+          this.message = 'Username Already Exists';
+          setTimeout(() => {
+            this.message = '';
+          }, 3000);
       } else {
           if(this.userForm.value.Role == 'Agent'){
 
             if(!codeExists){
-              console.log("Error: Code not exists.");
+              this.message = 'Code Not Exists';
+              setTimeout(() => {
+                this.message = '';
+              }, 3000);
             } else{
               this.encrypt();
               this.users.push(this.userForm.value);
@@ -297,8 +302,6 @@ export class UsersComponent implements OnInit{
   }
 
   deleteUser(user: any) {    
-    console.log(user);
-    console.log(this.users);
     if(user.Role == 'Agent'){
       this.users = this.users.filter((item:any) => item.CNIC !== user.CNIC); 
       this.allusers = this.allusers.filter((item:any) => item.CNIC !== user.CNIC);  
@@ -347,6 +350,10 @@ export class UsersComponent implements OnInit{
   saveData(data:any){
     this.userService.UpdateData(data).subscribe((data) => {
       console.log(data);
+      this.message = 'Successfully Add/Update';
+      setTimeout(() => {
+        this.message = '';
+      }, 3000);
     });
   }
 
@@ -663,6 +670,7 @@ export class UsersComponent implements OnInit{
 
   toggleOverlay() {
     this.overlayOpen = !this.overlayOpen;
+    this.cancelEdit();
   }
 
   private map!: L.Map;
