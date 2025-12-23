@@ -23,7 +23,7 @@
     <div class="form-grid">
       <div class="form-group">
         <label>CNIC</label>
-        <input formControlName="CNIC" placeholder="CNIC"/>
+        <input formControlName="CNIC" placeholder="3430-34734-342" (input)="formatCNIC($event)" maxlength="15"/>
       </div>
       <div class="form-group">
         <label>First Name</label>

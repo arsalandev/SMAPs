@@ -54,7 +54,21 @@ export class UsersComponent implements OnInit{
       this.userRoles = ['Agent'];
     }
     this.getAllUsers();  
-  }  
+  } 
+  
+  formatCNIC(event: any) {
+    let value = event.target.value.replace(/\D/g, '');
+  
+    if (value.length > 4) {
+      value = value.slice(0, 4) + '-' + value.slice(4);
+    }
+    if (value.length > 10) {
+      value = value.slice(0, 10) + '-' + value.slice(10, 13);
+    }
+  
+    event.target.value = value;
+  }
+  
 
   earth(){
      // Get the DOM element
@@ -264,7 +278,7 @@ export class UsersComponent implements OnInit{
       }
     //  this.cancelEdit();
     }
-
+    
   }
 
   editUser(user: any) {
@@ -348,12 +362,20 @@ export class UsersComponent implements OnInit{
   // Two API For Update & get Users Role
 
   saveData(data:any){
+    let temp = this.view;
     this.userService.UpdateData(data).subscribe((data) => {
       console.log(data);
       this.message = 'Successfully Add/Update';
+      this.view = '';
       setTimeout(() => {
-        this.message = '';
+        this.view = temp;
+        this.getAllUsers(); 
+      }, 500);
+      setTimeout(() => {
+        this.message = ''; 
       }, 3000);
+
+      
     });
   }
 
@@ -407,7 +429,9 @@ export class UsersComponent implements OnInit{
         this.roles = data.Role;
       }
       this.allusers = data.Users;
-      this.makeDataForEarth(this.users)
+      setTimeout(() => {        
+        this.makeDataForEarth(this.users)
+      }, 500);
     });
   }
 

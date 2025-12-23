@@ -40,10 +40,10 @@
             "CNIC": "9429-38201-102",
             "FirstName": "Dan",
             "LastName": "Oascar",
-            "Lat": "57.23",
+            "Lat": "18.23",
             "Role": "Agent",
             "Username": "oascar",
-            "long": "808.23"
+            "long": "84.20"
         },
         {
             "CNIC": "2311-31193-482",
@@ -53,6 +53,15 @@
             "Role": "Manager",
             "Username": "monty",
             "long": "23.43"
+        },
+        {
+            "CNIC": "2312-31231-2313",
+            "FirstName": "Jack",
+            "LastName": "Flex",
+            "Lat": "46.603354",
+            "Role": "Manager",
+            "Username": "Jflex",
+            "long": "1.8883335"
         }
     ],
     "Role": {
@@ -79,6 +88,12 @@
             }
         ],
         "Manager": {
+            "France": [
+                {
+                    "Username": "Jflex",
+                    "password": "nr3rt2ranc3rl2racr3ro2racn3rw2ra"
+                }
+            ],
             "Italy": [
                 {
                     "Username": "john",
